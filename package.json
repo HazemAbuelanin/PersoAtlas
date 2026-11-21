@@ -2,6 +2,12 @@
   "name": "persoatlas",
   "version": "1.0.0",
   "description": "A local-first, game-like atlas for any learning journey: skills, projects, roadmap, knowledge atlas, focus log, journal and profile, offline in one HTML file.",
+  "author": "Hazem Abuelanin (https://github.com/HazemAbuelanin)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HazemAbuelanin/PersoAtlas.git"
+  },
+  "homepage": "https://hazemabuelanin.github.io/PersoAtlas/",
   "type": "module",
   "license": "MIT",
   "private": true,

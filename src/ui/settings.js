@@ -83,7 +83,7 @@ export function renderSettings() {
     <span class="lbl">Content pack</span>
     <div class="note">Got a newer version of <strong>${esc(S.pack.name)}</strong> as a pack file? Load it to merge the new content in. Your progress, notes and own items are kept.</div>
     <button class="btn ghost" id="setPackFile" style="align-self:flex-start">Update from pack file</button>
-    <div class="note">${APP_NAME} · local-first and open source. Nothing you enter leaves this browser unless you export it.</div>`;
+    <div class="note">${APP_NAME} · created by <a href="https://github.com/HazemAbuelanin/PersoAtlas" target="_blank" rel="noopener">Hazem Abuelanin</a> · open source (MIT). Nothing you enter leaves this browser unless you export it.</div>`;
 
   const on = (id, fn) => { const el = $("#" + id); if (el) el.onclick = fn; };
   // profile

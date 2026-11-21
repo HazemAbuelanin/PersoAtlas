@@ -126,8 +126,14 @@ npm run check      # lint · validate packs · unit tests · build · end-to-end
 
 Ideas, bug reports, themes, emblems, trophies, translations and packs are all welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-## License
+## License and attribution
 
-Code is [MIT](LICENSE). Content packs carry their own license in their `pack.yaml`.
+PersoAtlas is open source under the [MIT License](LICENSE). You are free to use it, modify it, fork it, redistribute it and build on it, including commercially.
+
+The one condition: **keep the credit.** PersoAtlas was created by **Hazem Abuelanin**. If you use, copy or modify it, keep the copyright notice in [LICENSE](LICENSE) and [NOTICE](NOTICE), and mention the original author where you present your version (README, about page or credits), for example:
+
+> Based on [PersoAtlas](https://github.com/HazemAbuelanin/PersoAtlas) by Hazem Abuelanin.
+
+Content packs carry their own license in their `pack.yaml`.
 
 <div align="center"><sub>Made by <a href="https://github.com/HazemAbuelanin">Hazem Abuelanin</a>, for everyone who keeps learning.</sub></div>
