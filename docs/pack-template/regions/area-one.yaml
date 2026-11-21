@@ -1,0 +1,16 @@
+name: Area one
+code: A1
+color: "#5b8cff"
+desc: Replace with what this area covers
+skills:
+  - id: area-one-first-skill
+    name: First skill
+    tier: foundation
+    start: 1
+    end: 2
+    hpw: 2
+    why: Replace with why it matters
+    musts:
+      - Replace with a concept you must know
+    sources:
+      - { type: book, title: Replace with a resource }

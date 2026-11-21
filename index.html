@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="PersoAtlas: a local-first, gamified atlas for your learning journey. Skills, projects, roadmap, knowledge index, focus log, journal and portfolio, offline in one file.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 3 57 17v30L32 61 7 47V17z' fill='%2338d4ff'/%3E%3Cpath d='M32 14 47 23v18L32 50 17 41V23z' fill='%2304060c'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%2338d4ff'/%3E%3C/svg%3E">
+<title>PersoAtlas</title>
+</head>
+<body>
+<canvas id="fxbg" aria-hidden="true"></canvas>
+<div class="splash" id="splash" hidden></div>
+<noscript><p style="padding:24px;color:#d8e4ff;background:#04060c">PersoAtlas needs JavaScript. It runs entirely in your browser; nothing is sent anywhere.</p></noscript>
+<div class="app">
+  <header class="hud">
+    <div class="logo" id="logo"><span>PERSO<b>ATLAS</b></span></div>
+    <div class="player">
+      <button class="hero" id="hero" title="Open your profile" aria-label="Open your profile"><span class="ringbg" aria-hidden="true"></span><div class="ava" id="hudAva">?</div><div class="lvl gameonly" id="lvl" title="Level">1</div></button>
+      <div class="pmeta">
+        <div class="prank gameonly" id="hudRank"></div>
+        <div class="pname" id="hudName"></div>
+        <div class="pclass" id="hudSpec"></div>
+        <div class="xp"><i id="xpbar" style="width:0%"></i></div>
+        <div class="xpt" id="xpt"></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="v" id="sMast">0</div><div class="k">Mastered</div></div>
+      <div class="stat"><div class="v" id="sQuest">0/0</div><div class="k" id="sQuestK">Quests</div></div>
+      <div class="stat"><div class="v" id="sWeek">0h</div><div class="k">This week</div></div>
+      <div class="stat"><div class="v" id="sStreak">0</div><div class="k">Streak</div></div>
+      <div class="stat"><div class="v" id="sSrc">0/0</div><div class="k">Must-knows</div></div>
+    </div>
+    <div class="grow"></div>
+    <div class="btns">
+      <button class="timerchip" id="timerChip" hidden title="Focus session running · open Now"></button>
+      <button class="save btnlike" id="saveState" title="Data &amp; backup settings">Saved in this browser</button>
+      <button class="btn" id="sysBtn" aria-expanded="false" aria-controls="settings">System</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+      <input type="file" id="packFile" accept="application/json,.json" hidden>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab" data-view="now" role="tab">Now</button>
+    <button class="tab" data-view="inv" role="tab">Inventory</button>
+    <button class="tab" data-view="quests" role="tab">Quests<span class="n" id="nQuest"></span></button>
+    <button class="tab" data-view="map" role="tab">Roadmap</button>
+    <button class="tab" data-view="atlas" role="tab">Atlas<span class="n" id="nAtlas"></span></button>
+    <button class="tab" data-view="blog" role="tab">Blog<span class="n" id="nBlog"></span></button>
+    <button class="tab" data-view="duties" role="tab">Duties<span class="n" id="nDuty"></span></button>
+    <button class="tab" data-view="bio" role="tab">Bio</button>
+    <span class="tabind" id="tabind" aria-hidden="true"></span>
+  </nav>
+
+  <div class="view" id="v-now" hidden><div class="pagescroll" id="nowBody"></div></div>
+
+  <div class="view" id="v-inv" hidden>
+    <div class="main">
+      <section class="panel" aria-label="Regions">
+        <div class="ph"><span data-label="regions">Regions</span><button class="btn ghost" id="addRegion" data-addlabel="region">+ Region</button></div>
+        <div class="scroll"><ul class="rail" id="rail"></ul></div>
+      </section>
+      <section class="panel" aria-label="Inventory">
+        <div class="ph"><span data-label="inv">Inventory</span><input class="search" id="q" type="search" placeholder="Search skills and sources  ( / )" aria-label="Search skills and sources"></div>
+        <div class="scroll" id="center"></div>
+      </section>
+      <aside class="panel inspwrap" id="inspWrap" aria-label="Inspector">
+        <div class="ph"><span>Inspector</span><button class="btn ghost closeinsp" id="closeInsp">Close</button></div>
+        <div class="scroll" id="insp"></div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="view" id="v-quests" hidden>
+    <div class="two">
+      <section class="panel"><div class="ph"><span data-label="quests">Quests</span><button class="btn ghost" id="addQuest" data-addlabel="quest">+ Quest</button></div>
+        <div class="filters" id="questFilters" style="padding-top:10px"></div>
+        <div class="scroll"><div class="list" id="questList"></div></div></section>
+      <section class="panel"><div class="scroll" id="questEd"></div></section>
+    </div>
+  </div>
+
+  <div class="view" id="v-map" hidden>
+    <section class="panel" style="height:100%"><div class="ph"><span id="mapTitle">Roadmap</span><span class="legend" id="mapLegend"></span></div>
+      <div class="scroll" id="mapBody"></div></section>
+  </div>
+
+  <div class="view" id="v-atlas" hidden>
+    <section class="panel" style="height:100%"><div class="ph"><span id="atlasTitle">Atlas</span><input class="search" id="aq" type="search" placeholder="Search the atlas" aria-label="Search the atlas"></div>
+      <div class="scroll" id="atlasBody"></div></section>
+  </div>
+
+  <div class="view" id="v-blog" hidden>
+    <div class="two">
+      <section class="panel"><div class="ph"><span data-label="blog">Blog</span><button class="btn ghost" id="addPost" data-addlabel="post">+ Post</button></div>
+        <div class="filters" id="blogFilters" style="padding-top:10px"></div>
+        <div class="scroll"><div class="list" id="postList"></div></div></section>
+      <section class="panel"><div class="scroll" id="postEd"></div></section>
+    </div>
+  </div>
+
+  <div class="view" id="v-duties" hidden>
+    <div class="two">
+      <section class="panel"><div class="ph"><span data-label="duties">Duties</span><button class="btn ghost" id="addDuty" data-addlabel="duty">+ Duty</button></div>
+        <div class="summary" id="dutySum"></div>
+        <div class="filters" id="dutyFilters" style="padding-top:10px"></div>
+        <div class="scroll"><div class="list" id="dutyList"></div></div></section>
+      <section class="panel"><div class="scroll" id="dutyEd"></div></section>
+    </div>
+  </div>
+
+  <div class="view" id="v-bio" hidden></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="attFile" multiple hidden>
+<input type="file" id="avaFile" accept="image/*" hidden>
+<div class="settings" id="settings" hidden></div>
+<div class="onboard" id="onboard" hidden></div>
+<div class="unlocks" id="unlocks" aria-live="polite"></div>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="File viewer">
+  <div class="lbbar"><div class="lbname" id="lbName"></div>
+    <div class="btns"><span class="note" id="lbPos"></span><button class="btn" id="lbPrev" aria-label="Previous file">◀</button><button class="btn" id="lbNext" aria-label="Next file">▶</button><button class="btn" id="lbDl">Download</button><button class="btn primary" id="lbClose">Close</button></div></div>
+  <div class="lbbody" id="lbBody"></div>
+</div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

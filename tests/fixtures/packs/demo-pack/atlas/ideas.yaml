@@ -1,0 +1,4 @@
+label: Ideas
+items:
+  - { name: Demo Idea, idea: A synthetic entry., skill: alpha-one }
+  - { name: Other Idea, idea: Another synthetic entry. }

@@ -1,0 +1,19 @@
+name: Alpha Area
+code: AA
+color: "#5b8cff"
+skills:
+  - id: alpha-one
+    name: Alpha One
+    tier: foundation
+    start: 1
+    end: 3
+    musts: [First demo concept, Second demo concept]
+    sources:
+      - { type: book, title: Demo Book }
+  - id: alpha-two
+    name: Alpha Two
+    tier: core
+    start: 4
+    end: 8
+    prereqs: [alpha-one]
+    musts: [Third demo concept]

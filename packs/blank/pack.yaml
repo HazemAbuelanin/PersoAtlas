@@ -1,0 +1,26 @@
+id: blank
+name: Blank map
+summary: Start from nothing and build your own
+description: An empty atlas. Add your own regions, skills, projects and atlas entries, for any subject, degree, research area or hobby.
+version: 1.0.0
+revision: 1
+license: CC0-1.0
+authors:
+  - PersoAtlas contributors
+tags:
+  - blank
+audience: Anyone
+plan:
+  months: 12
+  weeklyHours: 10
+  phases:
+    - { name: "Phase 1 · Foundations", start: 1, end: 3 }
+    - { name: "Phase 2 · Core", start: 4, end: 6 }
+    - { name: "Phase 3 · Depth", start: 7, end: 9 }
+    - { name: "Phase 4 · Mastery", start: 10, end: 12 }
+atlas:
+  title: Things worth knowing
+  intro: Your personal index of the key ideas, methods, works or tools in your field. Mark each one ◐ when you understand it and ✓ when you have used or applied it yourself.
+  states: [Not yet, Understood, Applied]
+  sortByYear: false
+  link: { label: search, template: "https://www.google.com/search?q={name}" }

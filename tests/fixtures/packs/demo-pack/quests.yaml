@@ -1,0 +1,7 @@
+- id: demo-mission
+  code: M01
+  name: Demo Mission
+  start: 2
+  end: 5
+  proves: [alpha-one]
+  checklist: [Step one, Step two]

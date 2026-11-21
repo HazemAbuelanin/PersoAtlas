@@ -1,0 +1,22 @@
+# Synthetic test fixture. Not real content; used only by the test suite.
+id: demo-pack
+name: Demo Pack
+summary: Test fixture
+description: A tiny synthetic pack used by the automated tests.
+version: 1.0.0
+revision: 1
+license: CC0-1.0
+authors: [PersoAtlas tests]
+plan:
+  months: 12
+  weeklyHours: 6
+  phases:
+    - { name: "Phase A", start: 1, end: 6 }
+    - { name: "Phase B", start: 7, end: 12 }
+labels:
+  quests: Missions
+  quest: Mission
+atlas:
+  title: Demo ideas
+  states: [Not yet, Seen, Used]
+  link: { label: search, template: "https://example.org/?q={name}" }

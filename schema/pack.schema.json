@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://persoatlas.dev/schema/pack.schema.json",
+  "title": "PersoAtlas content pack (compiled)",
+  "description": "The compiled form of a pack, produced by scripts/build-packs.mjs from a packs/<id>/ folder. This is also the file format people import in the app.",
+  "type": "object",
+  "required": ["format", "id", "name", "version", "revision", "plan", "regions", "quests", "atlas"],
+  "additionalProperties": false,
+  "definitions": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$", "maxLength": 80 },
+    "contentId": { "type": "string", "pattern": "^[A-Za-z0-9._]+-[A-Za-z0-9._-]+$", "maxLength": 120, "description": "Content IDs must contain a dash. IDs created in the app never do, which is how upgrades tell pack content from user content." },
+    "month": { "type": "integer", "minimum": 1, "maximum": 240 },
+    "tier": { "enum": ["foundation", "core", "specialist", "mastery"] },
+    "text": { "type": "string", "maxLength": 4000 },
+    "url": { "type": "string", "maxLength": 2000, "pattern": "^(https?://.*)?$" },
+    "check": {
+      "type": "object", "required": ["id", "text"], "additionalProperties": false,
+      "properties": { "id": { "$ref": "#/definitions/contentId" }, "text": { "$ref": "#/definitions/text" } }
+    },
+    "source": {
+      "type": "object", "required": ["id", "type", "title"], "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/definitions/contentId" },
+        "type": { "enum": ["book", "course", "video", "paper", "repo", "tool", "community", "project", "note"] },
+        "title": { "type": "string", "minLength": 1, "maxLength": 400 },
+        "url": { "$ref": "#/definitions/url" }
+      }
+    },
+    "skill": {
+      "type": "object", "required": ["id", "name", "tier", "start", "end"], "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/definitions/contentId" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "group": { "type": "string", "maxLength": 80 },
+        "tier": { "$ref": "#/definitions/tier" },
+        "start": { "$ref": "#/definitions/month" },
+        "end": { "$ref": "#/definitions/month" },
+        "cont": { "type": "boolean", "description": "Ongoing: runs from start to the end of the plan." },
+        "hpw": { "type": "number", "minimum": 0, "maximum": 80, "description": "Planned hours per week." },
+        "why": { "$ref": "#/definitions/text" },
+        "build": { "$ref": "#/definitions/text" },
+        "notes": { "$ref": "#/definitions/text" },
+        "prereqs": { "type": "array", "items": { "$ref": "#/definitions/contentId" } },
+        "musts": { "type": "array", "items": { "$ref": "#/definitions/check" } },
+        "sources": { "type": "array", "items": { "$ref": "#/definitions/source" } }
+      }
+    }
+  },
+  "properties": {
+    "format": { "const": 1 },
+    "id": { "$ref": "#/definitions/id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "summary": { "type": "string", "maxLength": 120 },
+    "description": { "type": "string", "maxLength": 1000 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "revision": { "type": "integer", "minimum": 1, "description": "Bump it whenever content changes; the app then merges the new content into existing profiles without losing progress." },
+    "license": { "type": "string" },
+    "authors": { "type": "array", "items": { "type": "string" } },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "audience": { "type": "string", "maxLength": 120 },
+    "profile": {
+      "type": "object", "additionalProperties": false,
+      "properties": { "title": { "type": "string" }, "specialization": { "type": "string" }, "focus": { "type": "string" } }
+    },
+    "plan": {
+      "type": "object", "required": ["months"], "additionalProperties": false,
+      "properties": {
+        "months": { "$ref": "#/definitions/month" },
+        "weeklyHours": { "type": "number", "minimum": 0, "maximum": 100 },
+        "phases": {
+          "type": "array",
+          "items": {
+            "type": "object", "required": ["name", "start", "end"], "additionalProperties": false,
+            "properties": { "name": { "type": "string" }, "start": { "$ref": "#/definitions/month" }, "end": { "$ref": "#/definitions/month" } }
+          }
+        }
+      }
+    },
+    "labels": {
+      "type": "object", "additionalProperties": false,
+      "description": "Rename the app's vocabulary for this pack. Users can still override it in Settings.",
+      "properties": {
+        "now": { "type": "string" }, "inv": { "type": "string" }, "quests": { "type": "string" }, "map": { "type": "string" },
+        "atlas": { "type": "string" }, "blog": { "type": "string" }, "duties": { "type": "string" }, "bio": { "type": "string" },
+        "skill": { "type": "string" }, "quest": { "type": "string" }, "region": { "type": "string" }, "post": { "type": "string" }, "duty": { "type": "string" }
+      }
+    },
+    "defaults": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "build": { "type": "string", "description": "Default 'build to prove it' text for new skills." },
+        "checklist": { "type": "array", "items": { "type": "string" }, "description": "Default deliverables for new quests." }
+      }
+    },
+    "atlas": {
+      "type": "object", "required": ["cats", "items"], "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "intro": { "type": "string" },
+        "states": { "type": "array", "items": { "type": "string" }, "minItems": 3, "maxItems": 3 },
+        "sortByYear": { "type": "boolean" },
+        "link": {
+          "type": "object", "additionalProperties": false,
+          "properties": { "label": { "type": "string" }, "template": { "type": "string", "description": "Used when an item has no url. Placeholders: {name}, {year}." } }
+        },
+        "cats": {
+          "type": "array",
+          "items": { "type": "object", "required": ["id", "label"], "additionalProperties": false, "properties": { "id": { "$ref": "#/definitions/id" }, "label": { "type": "string" } } }
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object", "required": ["id", "cat", "name"], "additionalProperties": false,
+            "properties": {
+              "id": { "$ref": "#/definitions/contentId" }, "cat": { "$ref": "#/definitions/id" }, "name": { "type": "string", "minLength": 1 },
+              "year": { "type": ["string", "integer"] }, "idea": { "$ref": "#/definitions/text" }, "skill": { "$ref": "#/definitions/contentId" }, "url": { "$ref": "#/definitions/url" }
+            }
+          }
+        }
+      }
+    },
+    "regions": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/definitions/id" },
+      "additionalProperties": {
+        "type": "object", "required": ["name", "skills"], "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "code": { "type": "string", "maxLength": 3 },
+          "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+          "order": { "type": "number" },
+          "section": { "type": "string" },
+          "desc": { "type": "string" },
+          "exit": { "type": "string" },
+          "never": { "type": "array", "items": { "type": "string" } },
+          "skills": { "type": "array", "items": { "$ref": "#/definitions/skill" } }
+        }
+      }
+    },
+    "quests": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["id", "code", "name", "start", "end"], "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/definitions/contentId" },
+          "code": { "type": "string", "maxLength": 8 },
+          "name": { "type": "string", "minLength": 1 },
+          "tier": { "$ref": "#/definitions/tier" },
+          "start": { "$ref": "#/definitions/month" },
+          "end": { "$ref": "#/definitions/month" },
+          "hpw": { "type": "number", "minimum": 0, "maximum": 80 },
+          "doneWhen": { "$ref": "#/definitions/text" },
+          "notes": { "$ref": "#/definitions/text" },
+          "proves": { "type": "array", "items": { "$ref": "#/definitions/contentId" } },
+          "checklist": { "type": "array", "items": { "$ref": "#/definitions/check" } },
+          "sources": { "type": "array", "items": { "$ref": "#/definitions/source" } }
+        }
+      }
+    }
+  }
+}

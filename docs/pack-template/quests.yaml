@@ -1,0 +1,8 @@
+- id: q-first-quest
+  code: Q01
+  name: First quest
+  start: 2
+  end: 3
+  doneWhen: Replace with the measurable bar
+  proves: [area-one-first-skill]
+  checklist: [Planned, Done, Shared]

@@ -1,0 +1,5 @@
+name: Beta Area
+code: BB
+color: "#38d4ff"
+skills:
+  - { id: beta-one, name: Beta One, tier: specialist, start: 6, end: 12, musts: [Fourth demo concept] }

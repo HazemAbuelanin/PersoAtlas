@@ -1,0 +1,17 @@
+# Copy this folder, rename it, and replace every placeholder.
+id: pack-template
+name: Pack template
+summary: Replace with a one-line summary
+description: Replace with who this pack is for and what they will be able to do at the end.
+version: 1.0.0
+revision: 1
+license: CC-BY-SA-4.0
+authors: [Your Name]
+audience: Replace with the audience
+plan:
+  months: 6
+  weeklyHours: 5
+atlas:
+  title: Things worth knowing
+  states: [Not yet, Understood, Used]
+  link: { label: search, template: "https://www.google.com/search?q={name}" }
