@@ -14,7 +14,7 @@ PersoAtlas lets you **map your journey, prove your progress, and level up** whil
 ![No server](https://img.shields.io/badge/server-none-4fe3b0.svg)
 ![No tracking](https://img.shields.io/badge/network%20requests-0-ffcf5c.svg)
 
-**[Launch it in your browser](https://hazemabuelanin.github.io/PersoAtlas/)** · [Download the single file](../../releases/latest) · [Features](#what-you-get) · [Content packs](#content-packs) · [Contributing](CONTRIBUTING.md)
+**[Launch it in your browser](https://hazemabuelanin.github.io/PersoAtlas/)** · [Download the single file](https://github.com/HazemAbuelanin/PersoAtlas/releases/latest/download/index.html) · [Features](#what-you-get) · [Content packs](#content-packs) · [Contributing](CONTRIBUTING.md)
 
 <img src="docs/images/inventory.png" alt="The skill inventory" width="920">
 
@@ -87,7 +87,7 @@ PersoAtlas is a single place for all of it, with three beliefs behind it:
 | How | Steps |
 |---|---|
 | **In the browser** | Open **https://hazemabuelanin.github.io/PersoAtlas/**. Nothing to install. |
-| **Offline, one file** | Download `index.html` from the [latest release](../../releases/latest) and double-click it. |
+| **Offline, one file** | Download [`index.html`](https://github.com/HazemAbuelanin/PersoAtlas/releases/latest/download/index.html) from the [latest release](https://github.com/HazemAbuelanin/PersoAtlas/releases/latest) and double-click it. |
 | **From source** | `git clone git@github.com:HazemAbuelanin/PersoAtlas.git && cd PersoAtlas && npm install && npm run dev` → http://localhost:5173 |
 
 Build the single-file app yourself with `npm run build`; the result is `dist/index.html`. Requires Node 20+.

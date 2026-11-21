@@ -13,7 +13,7 @@ Thanks for helping. Every kind of contribution counts: bug reports, ideas, desig
 
 ```bash
 npm install
-npx playwright install chromium   # once, for end-to-end tests
+# end-to-end tests use your installed Google Chrome
 npm run dev                       # http://localhost:5173
 ```
 
